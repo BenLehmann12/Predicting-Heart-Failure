@@ -74,7 +74,7 @@ target = failure.iloc[:,-1]
 #print(something)
 #print(features)
 
-x_train,x_test,y_train,y_test = train_test_split(features,target, train_size=0.3, random_state=10)
+x_train,x_test,y_train,y_test = train_test_split(features,target, train_size=0.3, random_state=30)
 
 standard = StandardScaler()
 x_train_scaled = standard.fit_transform(x_train)
@@ -93,10 +93,10 @@ def bestParametersLogistic():
 
 
 def logistic():
-    logist = LogisticRegression(penalty='l1', solver='liblinear', C=10)
+    logist = LogisticRegression(penalty='l1', solver='liblinear', C=1)
     logist.fit(x_train_scaled,y_train)
     log_predict = logist.predict(x_test_scaled)
-    log_score = accuracy_score(y_test,log_predict)*100
+    log_score = accuracy_score(y_test,log_predict)*100   #85%
     print(log_predict)
     print(log_score)
 print(logistic())
