@@ -101,4 +101,36 @@ def logistic():
     print(log_score)
 print(logistic())
 
+#Find the Best K-neighbor score to use
+def KNNscores():
+    scores = []
+    for k in range(3,20):
+        neighbor = KNeighborsClassifier(n_neighbors=k, metric='minkowski')
+        neighbor.fit(x_train_scaled,y_train)
+        k_predicted = neighbor.predict(x_test_scaled)
+        scores.append(accuracy_score(y_test,k_predicted))
+    plt.plot(range(3,20),scores)
+    plt.show()
+#print(KNNscores())
+
+def KNN():
+    k = KNeighborsClassifier(n_neighbors=5, metric='minkowski')
+    k.fit(x_train_scaled,y_train)
+    knn_pred = k.predict(x_test_scaled)
+    knn_score = accuracy_score(y_test,knn_pred)
+    print(knn_pred)
+    print(knn_score)
+print(KNN())
+
+def KNNGridSearch():
+    Knn = KNeighborsClassifier()
+    param_grid = {
+        'C':[0.01,0.1,1,10,100],
+        'n_neighbors': list(range(2,18)),
+        'p':[1,2,3,4,5,6,7,8,9,10],
+        'weights': ['uniform','distance']
+    }
+    model = GridSearchCV(Knn,param_grid=param_grid,scoring='accuracy')
+print(KNNGridSearch())
+
 
