@@ -99,6 +99,14 @@ def logistic():
     log_score = accuracy_score(y_test,log_predict)*100   #85%
     print(log_predict)
     print(log_score)
+    
+    #Use the ROC/AUC curve to find the Score 
+    log_prob = logist.predict_proba(x_test_scaled)[:,1]
+    false_positive_log,true_positive_log,threshold_log = roc_curve(y_test,log_prob)
+    auc_score = metrics.auc(false_positive_log,true_positive_log)
+    print("AUC:", auc_score)
+    plt.plot(false_positive_forest,true_positive_forest)
+    plt.plot([0,1], ls='--')
 print(logistic())
 
 #Find the Best K-neighbor score to use
