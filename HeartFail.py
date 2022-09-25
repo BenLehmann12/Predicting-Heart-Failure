@@ -105,7 +105,7 @@ def logistic():
     false_positive_log,true_positive_log,threshold_log = roc_curve(y_test,log_prob)
     auc_score = metrics.auc(false_positive_log,true_positive_log)
     print("AUC:", auc_score)
-    plt.plot(false_positive_forest,true_positive_forest)
+    plt.plot(false_positive_log,true_positive_log)
     plt.plot([0,1], ls='--')
 print(logistic())
 
