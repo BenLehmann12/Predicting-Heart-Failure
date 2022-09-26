@@ -18,6 +18,9 @@ from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
+import xgboost as xgb
+from keras.models import Sequential
+from keras.layers import Dense
 
 failure = pd.read_csv('heart_failure_clinical_records_dataset.csv')
 #print(failure.head(5))
@@ -108,6 +111,18 @@ def logistic():
     plt.plot(false_positive_log,true_positive_log)
     plt.plot([0,1], ls='--')
 print(logistic())
+
+#Create a Simple Neural Network
+def Neural():
+    model = Sequential()
+    model.add(Dense(12,input_dim=8,activation='relu'))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dense(1,activation='sigmoid'))
+    model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+    model.fit(x_train_scaled,y_train,epochs=150,batch_size=10)
+    _,neural_acc = model.evaluate(x_test,y_test)
+    print('Accuracy of Neural Network %.2f%%'(neural_acc*100))
+
 
 #Find the Best K-neighbor score to use
 def KNNscores():
